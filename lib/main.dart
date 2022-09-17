@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopapp/styles/themes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,8 +10,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
+    return MaterialApp(
+      theme: lightTheme,
+      home: const Scaffold(
         body: Center(
           child: Text('test'),
         ),
