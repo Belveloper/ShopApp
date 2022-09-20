@@ -53,21 +53,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: emailController,
                             label: 'Email',
                             prefixIcon: Icons.email_outlined,
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return 'email must not be empty';
-                              }
-                            },
                           ),
                           const SizedBox(
                             height: 20,
                           ),
                           defaultFormField(
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  return 'password must not be empty';
-                                }
-                              },
                               onChanged: (value) {
                                 passwordController.text = value;
                               },
