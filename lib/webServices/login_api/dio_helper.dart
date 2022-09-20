@@ -14,11 +14,7 @@ class DioHelper {
     @required String? url,
     @required Map<String, dynamic>? query,
   }) async {
-    try {
-      return dio.get(url.toString(), queryParameters: query);
-    } catch (e) {
-      throw e.toString();
-    }
+    return await dio.get(url.toString(), queryParameters: query);
   }
 
   static Future<Response> postData({
@@ -26,10 +22,6 @@ class DioHelper {
     Map<String, dynamic>? query,
     @required Map<String, dynamic>? data,
   }) async {
-    try {
-      return dio.post(url.toString(), queryParameters: query, data: data);
-    } catch (e) {
-      throw e.toString();
-    }
+    return await dio.post(url.toString(), queryParameters: query, data: data);
   }
 }

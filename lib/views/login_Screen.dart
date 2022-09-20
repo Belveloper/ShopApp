@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopapp/constants/constants.dart';
 import 'package:shopapp/controllers/Login/cubit/states.dart';
+import 'package:shopapp/views/register_scren.dart';
 
 import '../controllers/Login/cubit/cubit.dart';
 
@@ -46,6 +47,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 20,
                           ),
                           defaultFormField(
+                            validate: (String? value) {
+                              if (value!.isEmpty) {
+                                return 'email must not be empty';
+                              }
+                              return null;
+                            },
                             onChanged: (value) {
                               emailController.text = value;
                             },
@@ -58,6 +65,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 20,
                           ),
                           defaultFormField(
+                              validate: (String? value) {
+                                if (value!.isEmpty) {
+                                  return 'password must not be empty';
+                                }
+                                return null;
+                              },
                               onChanged: (value) {
                                 passwordController.text = value;
                               },
@@ -89,6 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 builder: (context) => MaterialButton(
                                   onPressed: (() {
                                     if (formKey.currentState!.validate()) {
+                                      // print(emailController.text);
                                       ShopLoginCubit.get(context).userLogin(
                                           email: emailController.text,
                                           password: passwordController.text);
@@ -102,7 +116,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 fallback: (BuildContext context) =>
                                     const Center(
-                                  child: CircularProgressIndicator(),
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
@@ -115,7 +131,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               const Text('Don\'t have an account ?'),
                               defaultTextButton(
-                                  onPressed: () {}, text: 'REGISTER'),
+                                  onPressed: () {
+                                    navigateTo(context, const RegisterScreen());
+                                  },
+                                  text: 'REGISTER'),
                             ],
                           ),
                         ],

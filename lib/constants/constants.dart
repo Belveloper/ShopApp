@@ -29,7 +29,7 @@ Widget defaultFormField({
   @required TextInputType? keyboardType,
   var onSubmit,
   var onChanged,
-  Function? validator,
+  String? Function(String?)? validate,
   var suffixPressedFuncion,
   @required String? label,
   IconData? prefixIcon,
@@ -37,11 +37,15 @@ Widget defaultFormField({
   bool isPassword = false,
 }) =>
     TextFormField(
+        validator: validate,
         obscureText: isPassword,
         onFieldSubmitted: onSubmit,
         onChanged: onChanged,
         decoration: InputDecoration(
-          label: Text(label!),
+          label: Text(
+            label!,
+            style: defaultTitleTextStyle.copyWith(fontSize: 15),
+          ),
           prefixIcon: Icon(prefixIcon),
           suffixIcon: IconButton(
             icon: Icon(suffixIcon),

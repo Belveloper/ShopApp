@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopapp/controllers/Login/cubit/states.dart';
 
-import 'package:shopapp/webServices/endpointa/end_points.dart';
+import 'package:shopapp/webServices/endpoints/end_points.dart';
 import 'package:shopapp/webServices/login_api/dio_helper.dart';
 
 class ShopLoginCubit extends Cubit<ShopLoginStates> {
