@@ -3,6 +3,8 @@ import 'package:shopapp/constants/constants.dart';
 import 'package:shopapp/views/login_Screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../components/components.dart';
+
 class BoardingModel {
   String? image;
   String? title;

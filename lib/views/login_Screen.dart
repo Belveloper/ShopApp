@@ -5,6 +5,7 @@ import 'package:shopapp/constants/constants.dart';
 import 'package:shopapp/controllers/Login/cubit/states.dart';
 import 'package:shopapp/views/register_scren.dart';
 
+import '../components/components.dart';
 import '../controllers/Login/cubit/cubit.dart';
 
 class LoginScreen extends StatefulWidget {
