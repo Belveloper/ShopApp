@@ -90,22 +90,24 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 30,
                           ),
                           Center(
-                            child: Container(
-                              width: double.infinity,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3),
-                                color: kDefaultColor,
-                              ),
-                              child: ConditionalBuilder(
-                                condition: state is! ShopLoginLoadinglState,
-                                builder: (context) => MaterialButton(
+                            child: ConditionalBuilder(
+                              condition: state is! ShopLoginLoadinglState,
+                              builder: (context) => Container(
+                                width: double.infinity,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3),
+                                  color: kDefaultColor,
+                                ),
+                                child: MaterialButton(
                                   onPressed: (() {
                                     if (formKey.currentState!.validate()) {
                                       // print(emailController.text);
                                       ShopLoginCubit.get(context).userLogin(
-                                          email: emailController.text,
-                                          password: passwordController.text);
+                                        email: emailController.text.trim(),
+                                        password:
+                                            passwordController.text.trim(),
+                                      );
                                     }
                                   }),
                                   child: Text(
@@ -114,12 +116,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color: Colors.white),
                                   ),
                                 ),
-                                fallback: (BuildContext context) =>
-                                    const Center(
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  ),
-                                ),
+                              ),
+                              fallback: (BuildContext context) => Center(
+                                child: defaultLoadingIndicator(),
                               ),
                             ),
                           ),
