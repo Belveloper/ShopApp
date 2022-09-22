@@ -66,6 +66,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 20,
                           ),
                           defaultFormField(
+                              onSubmit: (value) {
+                                if (formKey.currentState!.validate()) {
+                                  // print(emailController.text);
+                                  ShopLoginCubit.get(context).userLogin(
+                                    email: emailController.text.trim(),
+                                    password: passwordController.text.trim(),
+                                  );
+                                }
+                              },
                               validate: (String? value) {
                                 if (value!.isEmpty) {
                                   return 'password must not be empty';

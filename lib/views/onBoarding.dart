@@ -127,7 +127,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: Image.asset('${model.image}'),
+          child: Center(child: Image.asset('${model.image}')),
         ),
         Text('${model.title}',
             style: const TextStyle(fontFamily: 'Righteous', fontSize: 25)),
