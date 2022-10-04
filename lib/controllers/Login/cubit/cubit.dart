@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopapp/controllers/Login/cubit/states.dart';
+import 'package:shopapp/models/login/shop_login_model.dart';
 import 'package:shopapp/webServices/endpoints/end_points.dart';
 
 import 'package:shopapp/webServices/login_api/dio_helper.dart';
 
 class ShopLoginCubit extends Cubit<ShopLoginStates> {
   ShopLoginCubit() : super(ShopLoginInitialState());
+  ShopLoginModel? loginModel;
 
   static ShopLoginCubit get(context) => BlocProvider.of(context);
 
@@ -16,11 +18,18 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
             url: LOGIN,
             data: {'email': email.toString(), 'password': password.toString()})
         .then((value) {
+      loginModel =
+          value.data != null ? ShopLoginModel.fromJson(value.data) : loginModel;
+
+      print(loginModel!.message);
+      print(loginModel!.data!.token);
+
       print(value.data);
-      emit(ShopLoginSucceslState());
+      emit(ShopLoginSucceslState(loginModel));
     }).catchError((onError) {
-      print(onError.toString());
-      emit(ShopLoginErrorState(onError.toString()));
+      print('ki maymshish cubit:$onError');
+
+      emit(ShopLoginErrorState(onError.toString(), loginModel));
     });
   }
 

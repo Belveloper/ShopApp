@@ -1,27 +1,77 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:shopapp/controllers/Shop/cubit/cubit.dart';
 import 'package:shopapp/styles/themes.dart';
-import 'package:shopapp/views/onBoarding.dart';
+import 'package:shopapp/views/login_Screen.dart';
+import 'package:shopapp/views/onBoarding_screen.dart';
+import 'package:shopapp/views/shop_layout_screen.dart';
 import 'package:shopapp/webServices/blocObserver/bloc_observer.dart';
 import 'package:shopapp/webServices/login_api/dio_helper.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox('Local');
+  var cache = createLocalDB();
+  // must be called when using SharedPrefrences .
   // NOTE: you must call init(); method of dio  in the main
   DioHelper.init(); //sbab lmashakil ... hhhhhh
-
   Bloc.observer = MyBlocObserver();
-  runApp(const MyApp());
+  createLocalDB();
+  //----------------------------------local cache variables----------------------------------
+  String? token;
+  bool? onBoarding;
+  //----------------------------------local cache variables----------------------------------
+  Widget widget = const OnBoardingScreen();
+  onBoarding = cache.get('onBoarding') ?? false;
+  token = cache.get('token');
+  if (onBoarding != null && onBoarding == true) {
+    if (token != null) {
+      widget = const ShopLayoutScreen();
+    } else {
+      widget = const LoginScreen();
+    }
+  } else {
+    if (onBoarding == false) {
+      widget = const OnBoardingScreen();
+    }
+  }
+  print(onBoarding);
+  runApp(
+    MyApp(
+      onBoarding: onBoarding!,
+      startWidget: widget,
+    ),
+  );
+}
+
+createLocalDB() {
+  return Hive.box('Local');
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final bool onBoarding;
+  final Widget startWidget;
+  const MyApp({
+    super.key,
+    required this.onBoarding,
+    required this.startWidget,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: lightTheme,
-      home: const OnBoardingScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: ((context) => ShopCubit()),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: lightTheme,
+        home: startWidget,
+      ),
     );
   }
 }

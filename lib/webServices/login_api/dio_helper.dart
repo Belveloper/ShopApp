@@ -10,7 +10,7 @@ class DioHelper {
         receiveDataWhenStatusError: true,
         headers: {
           'Content-Type': 'application/json',
-          'lang': 'ar',
+          'lang': 'en',
         },
       ),
     );

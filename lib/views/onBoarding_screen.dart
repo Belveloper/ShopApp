@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:shopapp/components/components.dart';
 import 'package:shopapp/constants/constants.dart';
 import 'package:shopapp/views/login_Screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-import '../components/components.dart';
 
 class BoardingModel {
   String? image;
@@ -21,6 +21,7 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  var cache = Hive.box('Local');
   PageController controller = PageController();
   bool isLast = false;
   List<BoardingModel> boarding = [
@@ -48,7 +49,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       appBar: AppBar(actions: [
         TextButton(
           onPressed: () {
-            navigateToAndFinish(context, const LoginScreen());
+            submit();
           },
           child: const Text(
             'SKIP',
@@ -105,7 +106,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     backgroundColor: Colors.deepOrange,
                     onPressed: () {
                       if (isLast) {
-                        navigateToAndFinish(context, const LoginScreen());
+                        submit();
                       } else {
                         controller.nextPage(
                             duration: const Duration(milliseconds: 750),
@@ -139,5 +140,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         Text('${model.description}', style: defaultTitleTextStyle),
       ],
     );
+  }
+
+  void submit() {
+    cache.put('onBoarding', true);
+    navigateToAndFinish(context, const LoginScreen());
   }
 }
