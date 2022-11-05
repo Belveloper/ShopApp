@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 Color kDefaultColor = Colors.deepOrange;
-Widget defaultLoadingIndicator() => SpinKitThreeBounce(
+Widget defaultLoadingIndicator({Color? color}) => SpinKitThreeBounce(
       size: 30,
-      color: kDefaultColor,
+      color: color ?? kDefaultColor,
     );
 
 TextStyle defaultTitleTextStyle = TextStyle(

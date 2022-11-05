@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:shopapp/constants/constants.dart';
 import 'package:shopapp/controllers/Shop/cubit/cubit.dart';
 import 'package:shopapp/controllers/Shop/cubit/states.dart';
 
@@ -33,6 +34,13 @@ class ShopLayoutScreen extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: Icon(Icons.podcasts), label: 'microphone'),
             ],
+          ),
+          appBar: AppBar(
+            title: Text(
+              'Boutiqua',
+              style: defaultTitleTextStyle.copyWith(
+                  fontSize: 30, color: Colors.black),
+            ),
           ),
         );
       },

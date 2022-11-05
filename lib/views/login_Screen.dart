@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           context: context,
                                           title: 'Authentication failed',
                                           type: QuickAlertType.error,
-                                          text: state.loginModel!.message,
+                                          text: state.loginModel?.message,
                                           confirmBtnColor: Colors.red);
                                     }
                                   }

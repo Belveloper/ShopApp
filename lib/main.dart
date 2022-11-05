@@ -8,6 +8,7 @@ import 'package:shopapp/views/onBoarding_screen.dart';
 import 'package:shopapp/views/shop_layout_screen.dart';
 import 'package:shopapp/webServices/blocObserver/bloc_observer.dart';
 import 'package:shopapp/webServices/login_api/dio_helper.dart';
+import 'package:shopapp/webServices/token.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,12 +21,12 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   createLocalDB();
   //----------------------------------local cache variables----------------------------------
-  String? token;
   bool? onBoarding;
   //----------------------------------local cache variables----------------------------------
   Widget widget = const OnBoardingScreen();
   onBoarding = cache.get('onBoarding') ?? false;
   token = cache.get('token');
+  print(token);
   if (onBoarding != null && onBoarding == true) {
     if (token != null) {
       widget = const ShopLayoutScreen();
@@ -64,8 +65,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: ((context) => ShopCubit()),
-        )
+          create: ((context) => ShopCubit()..getHomeData()),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
