@@ -15,21 +15,19 @@ class HomeDataModel {
     //banners = json['banners'].forEach((element) {
 
     for (var element in json['banners']) {
-      print(element);
-      banners?.add(element);
+      if (element != null) {
+        print(element);
+        banners?.add(element);
+      }
     }
-
     // banners?.add(element);
     // print('banner added to the banners list');
-
-    json['products'].forEach((element) {
+    for (var element in json['products']) {
       if (element != null) {
-        products!.add(element);
-        print('product added to the product list');
-      } else {
-        print('product element is null');
+        print(element);
+        products?.add(element);
       }
-    });
+    }
   }
 }
 

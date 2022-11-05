@@ -27,12 +27,13 @@ class ShopLayoutScreen extends StatelessWidget {
             currentIndex: cubit.currentIndex,
             items: const [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications), label: 'tickets'),
+                  icon: Icon(Icons.shopping_bag_outlined), label: 'home'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.date_range), label: 'calendar'),
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+                  icon: Icon(Icons.category_outlined), label: 'categories'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.podcasts), label: 'microphone'),
+                  icon: Icon(Icons.favorite_outline), label: 'favourites'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings_outlined), label: 'settings'),
             ],
           ),
           appBar: AppBar(

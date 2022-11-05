@@ -40,14 +40,12 @@ class ProductsScreen extends StatelessWidget {
             child: CarouselSlider(
               items: model?.data?.banners
                   ?.map(
-                    (e) => Expanded(
-                      child: CachedNetworkImage(
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                        imageUrl: e['image'],
-                        placeholder: ((context, url) => defaultLoadingIndicator(
-                            color: Colors.blue.shade900)),
-                      ),
+                    (e) => CachedNetworkImage(
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      imageUrl: e['image'],
+                      placeholder: ((context, url) =>
+                          defaultLoadingIndicator(color: Colors.blue.shade900)),
                     ),
                   )
                   .toList(),
