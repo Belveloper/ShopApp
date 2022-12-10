@@ -133,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 40,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(3),
-                                color: kDefaultColor,
+                                color: kDefaultOrangeColor,
                               ),
                               child: MaterialButton(
                                 onPressed: (() {

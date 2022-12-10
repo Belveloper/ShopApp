@@ -38,7 +38,7 @@ void main() async {
       widget = const OnBoardingScreen();
     }
   }
-  print(onBoarding);
+  //print(onBoarding);
   runApp(
     MyApp(
       onBoarding: onBoarding!,
@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: ((context) => ShopCubit()..getHomeData()),
+          create: ((context) => ShopCubit()..getHomeData()..getCategoryData()),
         ),
       ],
       child: MaterialApp(

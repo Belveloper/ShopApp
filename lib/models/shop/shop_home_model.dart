@@ -17,15 +17,16 @@ class HomeDataModel {
     for (var element in json['banners']) {
       if (element != null) {
         print(element);
-        banners?.add(element);
+        banners?.add(BnnerModel.fromJson(element));
       }
     }
     // banners?.add(element);
     // print('banner added to the banners list');
     for (var element in json['products']) {
       if (element != null) {
+        print('the product :');
         print(element);
-        products?.add(element);
+        products?.add(ProductModel.fromJson(element));
       }
     }
   }
@@ -52,7 +53,7 @@ class ProductModel {
   ProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     price = json['price'];
-    oldPrice = json['oldPrice'];
+    oldPrice = json['old_price'];
     discount = json['discount'];
     image = json['image'];
     name = json['name'];

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skeletons/skeletons.dart';
 
 import '../constants/constants.dart';
 
@@ -52,3 +53,97 @@ Widget defaultFormField({
             onPressed: suffixPressedFuncion,
           ),
         ));
+
+Widget skeletonPorsuctItemWidget() => SingleChildScrollView(
+      physics: const NeverScrollableScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            SkeletonAvatar(
+              style: SkeletonAvatarStyle(
+                height: 200,
+                width: 400,
+                borderRadius: BorderRadius.circular(13),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Expanded(
+                        child: SkeletonAvatar(
+                          style: SkeletonAvatarStyle(height: 150),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: SkeletonAvatar(
+                          style: SkeletonAvatarStyle(height: 100, width: 200),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: const [
+                      Expanded(
+                        child: SkeletonAvatar(
+                          style: SkeletonAvatarStyle(height: 100, width: 200),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 40,
+                      ),
+                      Expanded(
+                        child: SkeletonAvatar(
+                          style: SkeletonAvatarStyle(
+                            height: 150,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: const [
+                      SkeletonAvatar(
+                        style: SkeletonAvatarStyle(height: 150, width: 100),
+                      ),
+                      SizedBox(
+                        width: 40,
+                      ),
+                      SkeletonAvatar(
+                        style: SkeletonAvatarStyle(height: 100, width: 200),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+Widget skeletonCategoryItem() {
+  return Padding(
+    padding: const EdgeInsets.all(10.0),
+    child: ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 5,
+      itemBuilder: (context, index) => SkeletonListTile(
+        leadingStyle: const SkeletonAvatarStyle(height: 100, width: 100),
+      ),
+    ),
+  );
+}
