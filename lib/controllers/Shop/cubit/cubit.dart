@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopapp/controllers/Shop/cubit/states.dart';
 import 'package:shopapp/models/Categories/shop_categories_model.dart';
+import 'package:shopapp/models/Favourites/favourites_model.dart';
+import 'package:shopapp/models/ToggleFavourites/toogle_favourites_model.dart';
 import 'package:shopapp/modules/categories/categories_screen.dart';
 import 'package:shopapp/modules/favourites/favourites_screen.dart';
 import 'package:shopapp/modules/products/products_screen.dart';
@@ -17,6 +19,8 @@ class ShopCubit extends Cubit<ShopStates> {
   static ShopCubit get(context) => BlocProvider.of(context);
   HomeModel? homeModel;
   CategoriesModel? categoriesModel;
+  Map<int, bool>? favourites = {};
+  FavouritesModel? favouritesModel;
 
   int currentIndex = 0;
   int carouselIndicatorIndex = 0;
@@ -47,6 +51,10 @@ class ShopCubit extends Cubit<ShopStates> {
       homeModel = HomeModel.fromJson(value.data);
       //print('the data came from homeModel :');
       //print(homeModel?.data?.products);
+      for (var element in homeModel!.data!.products!) {
+        favourites!.addAll({element.id: element.in_favorites});
+      }
+      print(favourites);
       emit(ShopSuccesHomeDataState());
     }).catchError((onError) {
       print('home model data error:');
@@ -65,6 +73,57 @@ class ShopCubit extends Cubit<ShopStates> {
     }).onError((error, stackTrace) {
       print('error when categories api called');
       emit(ShopErrorCategoriesState(error.toString()));
+    });
+  }
+
+  ToggleFavouritesModel? toggleFavouritesModel;
+
+  void toggleFavourites(int productId) {
+    favourites![productId] = !favourites![productId]!;
+    emit(ShopSuccesToggleFavIconState());
+    DioHelper.postData(
+      url: FAVOURITES,
+      data: {
+        'product_id': productId,
+      },
+      token: token,
+    ).then((value) {
+      print(value.data);
+      toggleFavouritesModel = ToggleFavouritesModel.fromJson(value.data);
+      print('toggle favourite status :${toggleFavouritesModel!.status!}');
+
+      if (!toggleFavouritesModel!.status!) {
+        favourites![productId] = !favourites![productId]!;
+
+        emit(ShopSuccesToggleFavIconState(model: toggleFavouritesModel!));
+      } else {
+        getFavouritesData();
+      }
+
+      emit(ShopSuccesToggleFavsState());
+    }).catchError((onError) {
+      favourites![productId] = !favourites![productId]!;
+      emit(ShopErrorToggleFavsState(onError.toString()));
+
+      //emit(ShopSuccesToggleFavIconState(model: toggleFavouritesModel));
+    });
+  }
+
+  void getFavouritesData() {
+    emit(ShopLoadingFavouritesDataState());
+    DioHelper.getData(
+      url: FAVOURITES,
+      token: token,
+    ).then((value) {
+      if (value.data != null) {
+        print('Favourites data :${value.data}');
+        favouritesModel = FavouritesModel.fromJson(value.data);
+        emit(ShopSuccesFavouritesDataState());
+      }
+    }).onError((error, stackTrace) {
+      print(
+          'error when getting favourites data from API:\n${error.toString()}');
+      emit(ShopErrorFavouritesDataState(error.toString()));
     });
   }
 }

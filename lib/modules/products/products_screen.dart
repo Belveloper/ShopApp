@@ -18,7 +18,14 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ShopSuccesToggleFavIconState) {
+          if (!state.model!.status!) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.model!.message!)));
+          }
+        }
+      },
       builder: (context, state) {
         return ConditionalBuilder(
             condition: ShopCubit.get(context).homeModel != null,
@@ -124,7 +131,8 @@ class ProductsScreen extends StatelessWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(13),
                           ),
-                          child: buildGridProducts(model.data!, index)),
+                          child:
+                              buildGridProducts(model.data!, index, context)),
                     ),
                   ),
                 ),
@@ -134,7 +142,7 @@ class ProductsScreen extends StatelessWidget {
   }
 }
 
-Widget buildGridProducts(HomeDataModel model, int index) {
+Widget buildGridProducts(HomeDataModel model, int index, context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -207,11 +215,18 @@ Widget buildGridProducts(HomeDataModel model, int index) {
           const Spacer(),
           IconButton(
               onPressed: () {
+                ShopCubit.get(context)
+                    .toggleFavourites(model.products![index].id);
                 print('pressed of favourite icon');
               },
               icon: Icon(
-                Icons.favorite_outline_rounded,
-                color: kDefaultBlueColor,
+                ShopCubit.get(context).favourites![model.products![index].id]!
+                    ? Icons.favorite_outlined
+                    : Icons.favorite_outline_rounded,
+                color: ShopCubit.get(context)
+                        .favourites![model.products![index].id]!
+                    ? Colors.red
+                    : kDefaultBlueColor,
               ))
         ],
       )

@@ -2,19 +2,27 @@ import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hive/hive.dart';
+import 'package:shopapp/components/components.dart';
 import 'package:shopapp/constants/constants.dart';
+import 'package:shopapp/controllers/Login/cubit/states.dart';
 import 'package:shopapp/controllers/Shop/cubit/cubit.dart';
 import 'package:shopapp/controllers/Shop/cubit/states.dart';
+import 'package:shopapp/views/login_Screen.dart';
+
+import '../controllers/Login/cubit/cubit.dart';
 
 class ShopLayoutScreen extends StatelessWidget {
   const ShopLayoutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var cache = Hive.box('Local');
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = ShopCubit.get(context);
+        var ShopLogincubit = ShopLoginCubit.get(context);
 
         return Scaffold(
           extendBody: true,
@@ -97,15 +105,59 @@ class ShopLayoutScreen extends StatelessWidget {
               ],
             ),
           ),
-          drawer: const Drawer(
-            child: Align(
-              alignment: AlignmentDirectional.bottomCenter,
-              child: Text(
-                'Version 1.0.0',
-                style: TextStyle(fontWeight: FontWeight.w500),
+          drawer: Drawer(
+              child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const DrawerHeader(child: Text('Header')),
+              const Divider(),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: BlocListener<ShopLoginCubit, ShopLoginStates>(
+                      listener: (context, state) {
+                        if (state is ShopLogOutSucceslState) {
+                          cache
+                              .delete('token')
+                              .then((value) => navigateToAndFinish(
+                                  context, const LoginScreen()))
+                              .onError((error, stackTrace) {
+                            print(error.toString());
+                          });
+                        }
+                      },
+                      child: GestureDetector(
+                        onTap: (() {
+                          ShopLogincubit.userLogOut();
+                        }),
+                        child: Container(
+                          height: 30,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.red.shade600),
+                          child: Center(
+                            child: Text(
+                              'Sign-Out',
+                              textAlign: TextAlign.center,
+                              style: defaultTitleTextStyle.copyWith(
+                                  color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text('Version 1.0.0')
+            ],
+          )),
         );
       },
     );
