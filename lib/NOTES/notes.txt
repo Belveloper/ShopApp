@@ -1,0 +1,15 @@
+when you get an null-safety error in declaring functions or methods try to copy the same modifier as shown in the tip-box 
+-----------------------------------------------example-----------------------------------------------------------------------------------
+{
+    void Function(String?)? onSaved    //copy this  'Function(String?)?'
+}
+Type: void Function(String?)?
+Creates a [FormField] that contains a [TextField].
+
+When a [controller] is specified, [initialValue] must be null (the default). If [controller] is null, then a [TextEditingController] will be constructed automatically and its text will be initialized to [initialValue] or the empty string.
+
+For documentation about the various parameters, see the [TextField] class and [TextField.new], the constructor.
+-----------------------------------------------example-----------------------------------------------------------------------------------
+
+
+in Dio  don't forget to call the init(); method in the main to avoid all kind of error such as  "no http host defined , Dio no initalized ...etc " 
