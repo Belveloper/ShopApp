@@ -54,12 +54,15 @@ class ProductsScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(13),
                         child: CarouselSlider(
                           items: model.data?.banners
-                              ?.map(
-                                (e) => Image(
-                                    width: double.infinity,
+                              ?.map((e) => CachedNetworkImage(
                                     fit: BoxFit.cover,
-                                    image: NetworkImage(e.image)),
-                              )
+                                    placeholder: ((context, url) =>
+                                        CachedNetworkImage(
+                                            fit: BoxFit.cover,
+                                            imageUrl:
+                                                'https://img.freepik.com/free-vector/shopping-time-banner-with-realistic-map-cart-gift-bags-vector-illustration_548887-120.jpg?size=626&ext=jpg')),
+                                    imageUrl: e.image!,
+                                  ))
                               .toList(),
                           options: CarouselOptions(
                             onPageChanged: ((index, reason) {

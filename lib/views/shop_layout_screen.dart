@@ -119,18 +119,45 @@ class ShopLayoutScreen extends StatelessWidget {
                     child: BlocListener<ShopLoginCubit, ShopLoginStates>(
                       listener: (context, state) {
                         if (state is ShopLogOutSucceslState) {
-                          cache
-                              .delete('token')
-                              .then((value) => navigateToAndFinish(
-                                  context, const LoginScreen()))
-                              .onError((error, stackTrace) {
+                          cache.delete('token').then((value) {
+                            Navigator.pop(context);
+                            navigateToAndFinish(context, const LoginScreen());
+                          }).onError((error, stackTrace) {
                             print(error.toString());
                           });
                         }
                       },
                       child: GestureDetector(
                         onTap: (() {
-                          ShopLogincubit.userLogOut();
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              content: const Text('Confirm Sign Out ?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: (() {
+                                    ShopLogincubit.userLogOut();
+                                  }),
+                                  child: state is ShopLogOutLoadinglState
+                                      ? defaultLoadingIndicator()
+                                      : Text(
+                                          'OK',
+                                          style: defaultTitleTextStyle,
+                                        ),
+                                ),
+                                TextButton(
+                                  onPressed: (() {
+                                    Navigator.pop(context);
+                                  }),
+                                  child: Text(
+                                    'Cancel',
+                                    style: defaultTitleTextStyle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                          //
                         }),
                         child: Container(
                           height: 30,
@@ -139,12 +166,14 @@ class ShopLayoutScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5),
                               color: Colors.red.shade600),
                           child: Center(
-                            child: Text(
-                              'Sign-Out',
-                              textAlign: TextAlign.center,
-                              style: defaultTitleTextStyle.copyWith(
-                                  color: Colors.white),
-                            ),
+                            child: state is ShopLogOutLoadinglState
+                                ? defaultLoadingIndicator()
+                                : Text(
+                                    'Sign-Out',
+                                    textAlign: TextAlign.center,
+                                    style: defaultTitleTextStyle.copyWith(
+                                        color: Colors.white),
+                                  ),
                           ),
                         ),
                       ),
