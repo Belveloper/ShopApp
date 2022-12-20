@@ -11,6 +11,8 @@ import 'package:shopapp/webServices/blocObserver/bloc_observer.dart';
 import 'package:shopapp/webServices/login_api/dio_helper.dart';
 import 'package:shopapp/webServices/token.dart';
 
+import 'controllers/Profile/cubit/cubit.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
@@ -67,6 +69,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: ((context) => ShopLoginCubit()),
+        ),
+        BlocProvider(
+          create: ((context) => ProfileCubit()..getProfileData()),
         ),
         BlocProvider(
           create: ((context) => ShopCubit()

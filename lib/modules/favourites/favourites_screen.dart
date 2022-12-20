@@ -13,32 +13,41 @@ class FavouritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = ShopCubit.get(context).favouritesModel;
+    var cubit = ShopCubit.get(context).favouritesModel!;
     return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ShopSuccesToggleFavsState) {
+          ShopCubit.get(context).getFavouritesData();
+        }
+      },
       builder: (context, state) {
-        return cubit!.data!.data!.isNotEmpty
-            ? Padding(
-                padding: const EdgeInsets.all(8.0),
+        return cubit.data!.data!.isNotEmpty
+            ? Container(
+                color: Colors.grey.shade100,
                 child: ListView.separated(
                     physics: const BouncingScrollPhysics(),
-                    itemBuilder: ((context, index) => Container(
-                          height: 120,
-                          color: Colors.grey.shade100,
-                          child: buildFavItem(cubit, context, index),
-                        )),
+                    itemBuilder: ((context, index) =>
+                        buildFavItem(cubit, context, index)),
                     separatorBuilder: ((context, index) => const Divider()),
                     itemCount: cubit.data!.data!.length),
               )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Lottie.asset('lib/assets/images/fav.zip'),
-                  Text(
-                    'No Favourites yet add some from Boutiqua',
-                    style: defaultTitleTextStyle.copyWith(fontSize: 20),
-                  )
-                ],
+            : Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  //crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Lottie.asset(
+                      'lib/assets/images/fav.zip',
+                    ),
+                    Text(
+                      'No Favourites yet add some from Boutiqua',
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      style: defaultTitleTextStyle.copyWith(fontSize: 20),
+                    )
+                  ],
+                ),
               );
       },
     );
@@ -60,10 +69,11 @@ class FavouritesScreen extends StatelessWidget {
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
                   CachedNetworkImage(
+                    // fit: BoxFit.scaleDown,
                     placeholder: ((context, url) =>
                         defaultLoadingIndicator(color: kDefaultBlueColor)),
                     width: double.infinity,
-                    height: 200,
+                    height: 120,
                     imageUrl: model!.data!.data![index].product!.image!,
                   ),
                   if (model.data!.data![index].product!.discount != 0)

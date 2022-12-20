@@ -23,6 +23,9 @@ Widget defaultTextButton({required onPressed, required String text}) =>
     );
 
 Widget defaultFormField({
+  String? initalValue,
+  TextStyle? style,
+  bool? isEnabled,
   @required TextEditingController? controller,
   @required TextInputType? keyboardType,
   Function(String?)? onSubmit,
@@ -35,9 +38,12 @@ Widget defaultFormField({
   bool isPassword = false,
 }) =>
     TextFormField(
+        enabled: isEnabled,
         onSaved: (newValue) {
           onSubmit;
         },
+        initialValue: initalValue,
+        style: style,
         validator: validate,
         obscureText: isPassword,
         onFieldSubmitted: onSubmit,

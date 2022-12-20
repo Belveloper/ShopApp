@@ -54,11 +54,11 @@ class ShopCubit extends Cubit<ShopStates> {
       for (var element in homeModel!.data!.products!) {
         favourites!.addAll({element.id: element.in_favorites});
       }
-      print(favourites);
+   //   print(favourites);
       emit(ShopSuccesHomeDataState());
     }).catchError((onError) {
-      print('home model data error:');
-      print(onError.toString());
+      // print('home model data error:');
+      // print(onError.toString());
       emit(ShopErrorHomeDataState(onError.toString()));
     });
   }
@@ -66,20 +66,20 @@ class ShopCubit extends Cubit<ShopStates> {
   void getCategoryData() {
     emit(ShopLoadingCategoriesState());
     DioHelper.getData(url: CATEGORIES).then((value) {
-      print('categories');
-      print(value.data);
+      // print('categories');
+      // print(value.data);
       categoriesModel = CategoriesModel.fromJson(value.data);
       emit(ShopSuccesCategoriesState());
     }).onError((error, stackTrace) {
-      print('error when categories api called');
+      //  print('error when categories api called');
       emit(ShopErrorCategoriesState(error.toString()));
     });
   }
 
   ToggleFavouritesModel? toggleFavouritesModel;
 
-  void toggleFavourites(int productId) {
-    favourites![productId] = !favourites![productId]!;
+  void toggleFavourites(int? productId) {
+    favourites![productId!] = !favourites![productId]!;
     emit(ShopSuccesToggleFavIconState());
     DioHelper.postData(
       url: FAVOURITES,
@@ -88,9 +88,9 @@ class ShopCubit extends Cubit<ShopStates> {
       },
       token: token,
     ).then((value) {
-      print(value.data);
+      // print(value.data);
       toggleFavouritesModel = ToggleFavouritesModel.fromJson(value.data);
-      print('toggle favourite status :${toggleFavouritesModel!.status!}');
+      //print('toggle favourite status :${toggleFavouritesModel!.status!}');
 
       if (!toggleFavouritesModel!.status!) {
         favourites![productId] = !favourites![productId]!;
@@ -116,7 +116,7 @@ class ShopCubit extends Cubit<ShopStates> {
       token: token,
     ).then((value) {
       if (value.data != null) {
-        print('Favourites data :${value.data}');
+        // print('Favourites data :${value.data}');
         favouritesModel = FavouritesModel.fromJson(value.data);
         emit(ShopSuccesFavouritesDataState());
       }
