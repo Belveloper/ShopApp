@@ -54,86 +54,87 @@ class FavouritesScreen extends StatelessWidget {
   }
 
   buildFavItem(FavouritesModel? model, context, int index) => Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(13),
-        color: Colors.white,
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Stack(
-                alignment: AlignmentDirectional.bottomStart,
-                children: [
-                  CachedNetworkImage(
-                    // fit: BoxFit.scaleDown,
-                    placeholder: ((context, url) =>
-                        defaultLoadingIndicator(color: kDefaultBlueColor)),
-                    width: double.infinity,
-                    height: 120,
-                    imageUrl: model!.data!.data![index].product!.image!,
-                  ),
-                  if (model.data!.data![index].product!.discount != 0)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 5,
-                      ),
-                      decoration: BoxDecoration(
-                          color: Colors.red.shade400,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Text(
-                        'Discount',
-                        style: defaultTitleTextStyle.copyWith(
-                            fontSize: 12, color: Colors.white),
-                      ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(13),
+          color: Colors.white,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Stack(
+                  alignment: AlignmentDirectional.bottomStart,
+                  children: [
+                    CachedNetworkImage(
+                      // fit: BoxFit.scaleDown,
+                      placeholder: ((context, url) =>
+                          defaultLoadingIndicator(color: kDefaultBlueColor)),
+                      width: double.infinity,
+                      height: 120,
+                      imageUrl: model!.data!.data![index].product!.image!,
                     ),
-                ],
+                    if (model.data!.data![index].product!.discount != 0)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 5,
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.red.shade400,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Text(
+                          'Discount',
+                          style: defaultTitleTextStyle.copyWith(
+                              fontSize: 12, color: Colors.white),
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
-              child: Text(
-                model.data!.data![index].product!.name!,
-                style: defaultTitleTextStyle.copyWith(fontSize: 13),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 2, 10),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
                 child: Text(
-                  model.data!.data![index].product!.price.toString(),
+                  model.data!.data![index].product!.name!,
+                  style: defaultTitleTextStyle.copyWith(fontSize: 13),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 2, 10),
+                  child: Text(
+                    model.data!.data![index].product!.price.toString(),
+                    style: defaultTitleTextStyle.copyWith(
+                        fontSize: 12, color: kDefaultBlueColor),
+                  ),
+                ),
+                Text(
+                  "DZ",
                   style: defaultTitleTextStyle.copyWith(
                       fontSize: 12, color: kDefaultBlueColor),
                 ),
-              ),
-              Text(
-                "DZ",
-                style: defaultTitleTextStyle.copyWith(
-                    fontSize: 12, color: kDefaultBlueColor),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                model.data!.data![index].product!.discount == 0
-                    ? ''
-                    : model.data!.data![index].product!.oldPrice.toString(),
-                style: defaultTitleTextStyle.copyWith(
-                    color: Colors.black,
-                    fontSize: 12,
-                    decoration: TextDecoration.lineThrough),
-              ),
-            ],
-          ),
-        ],
-      ));
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  model.data!.data![index].product!.discount == 0
+                      ? ''
+                      : model.data!.data![index].product!.oldPrice.toString(),
+                  style: defaultTitleTextStyle.copyWith(
+                      color: Colors.black,
+                      fontSize: 12,
+                      decoration: TextDecoration.lineThrough),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
 }

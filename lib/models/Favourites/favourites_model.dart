@@ -13,30 +13,6 @@ class FavouritesModel {
 class Data {
   int? currentPage;
   List<FavouritesDataModel>? data;
-  String? firstPageUrl;
-  int? from;
-  int? lastPage;
-  String? lastPageUrl;
-  String? nextPageUrl;
-  String? path;
-  int? perPage;
-  String? prevPageUrl;
-  int? to;
-  int? total;
-
-  Data(
-      {this.currentPage,
-      this.data,
-      this.firstPageUrl,
-      this.from,
-      this.lastPage,
-      this.lastPageUrl,
-      this.nextPageUrl,
-      this.path,
-      this.perPage,
-      this.prevPageUrl,
-      this.to,
-      this.total});
 
   Data.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
@@ -46,16 +22,6 @@ class Data {
         data!.add(FavouritesDataModel.fromJson(v));
       });
     }
-    firstPageUrl = json['first_page_url'];
-    from = json['from'];
-    lastPage = json['last_page'];
-    lastPageUrl = json['last_page_url'];
-    nextPageUrl = json['next_page_url'];
-    path = json['path'];
-    perPage = json['per_page'];
-    prevPageUrl = json['prev_page_url'];
-    to = json['to'];
-    total = json['total'];
   }
 }
 
@@ -72,9 +38,9 @@ class FavouritesDataModel {
 
 class Product {
   int? id;
-  int? price;
-  int? oldPrice;
-  int? discount;
+  dynamic price;
+  dynamic oldPrice;
+  dynamic discount;
   String? image;
   String? name;
   String? description;

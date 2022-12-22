@@ -36,7 +36,7 @@ class DioHelper {
   }) async {
     dio?.options.headers = {
       'Content-Type': 'application/json',
-      'lang': 'ar',
+      'lang': 'en',
       'Authorization': token,
     };
     return await dio!.post(url as String, queryParameters: query, data: data);

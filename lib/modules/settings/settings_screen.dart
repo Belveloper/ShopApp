@@ -61,8 +61,9 @@ class SettingsScreen extends StatelessWidget {
                         }
                       },
                       validate: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'Name must not be empty';
+                        if (value!.isEmpty ||
+                            value == cubit.profileModel!.data!.name!) {
+                          return 'Name must not be empty or the same as the old one';
                         }
                         return null;
                       },
@@ -101,28 +102,22 @@ class SettingsScreen extends StatelessWidget {
                       height: 20,
                     ),
                     defaultFormField(
+                      keyboardType: TextInputType.phone,
                       //  isEnabled: false,
                       initalValue: cubit.profileModel!.data!.phone!,
-                      onSubmit: (value) {
-                        if (formKey.currentState!.validate()) {
-                          // print(emailController.text);
-                          ShopLoginCubit.get(context).userLogin(
-                            email: emailController.text.trim(),
-                            password: nameController.text.trim(),
-                          );
-                        }
-                      },
+
                       validate: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'Phone must not be empty';
+                        if (value! == cubit.profileModel!.data!.phone!) {
+                          return 'Phone number must not be empty or the same as the old one';
                         }
                         return null;
                       },
                       onChanged: (value) {
-                        phoneController.text = value;
+                        phoneController.text =
+                            value.replaceAll(RegExp(r'[^0-9]'), '');
                       },
                       controller: phoneController,
-                      keyboardType: TextInputType.number,
+
                       label: 'Phone',
                       prefixIcon: Icons.phone_outlined,
                       style: defaultTitleTextStyle.copyWith(
@@ -144,17 +139,20 @@ class SettingsScreen extends StatelessWidget {
                           child: MaterialButton(
                             onPressed: (() {
                               if (formKey.currentState!.validate()) {
-                                print(emailController.text);
+                                // print(emailController.text);
                                 cubit.updateProfileInformations(
                                     nameController.text,
                                     emailController.text,
                                     phoneController.text);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  duration: const Duration(milliseconds: 350),
+                                  backgroundColor:
+                                      Colors.green.withOpacity(0.7),
+                                  content: const Text('Profile Updated'),
+                                  behavior: SnackBarBehavior.floating,
+                                ));
                               }
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                backgroundColor: Colors.green.shade200,
-                                content: const Text('Profile Updated'),
-                              ));
                             }),
                             child: Text(
                               'Submit',

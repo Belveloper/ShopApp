@@ -1,4 +1,5 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,6 +12,7 @@ import 'package:shopapp/controllers/Profile/cubit/cubit.dart';
 import 'package:shopapp/controllers/Profile/cubit/states.dart';
 import 'package:shopapp/controllers/Shop/cubit/cubit.dart';
 import 'package:shopapp/controllers/Shop/cubit/states.dart';
+import 'package:shopapp/modules/search/search_screen.dart';
 import 'package:shopapp/modules/settings/settings_screen.dart';
 import 'package:shopapp/views/login_Screen.dart';
 
@@ -32,55 +34,65 @@ class ShopLayoutScreen extends StatelessWidget {
         return Scaffold(
           extendBody: true,
           backgroundColor: Colors.white,
-          body: RefreshIndicator(
-              onRefresh: () async {
-                cubit.getHomeData();
-                cubit.getCategoryData();
-              },
-              child: cubit.bottomNavigationBarScreens[cubit.currentIndex]),
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: DotNavigationBar(
-              margin: const EdgeInsets.only(left: 10, right: 10),
-              currentIndex: cubit.currentIndex,
-              backgroundColor: Colors.white70.withOpacity(0.6),
-              //itemPadding:const EdgeInsets.symmetric(vertical: 0, horizontal: 0), ,
-              onTap: (value) => cubit.toggleBottomNavBarScreen(value),
-              // dotIndicatorColor: Colors.black,
-              items: [
-                //
-                DotNavigationBarItem(
-                    icon: const Icon(
-                      FontAwesomeIcons.bagShopping,
-                    ),
-                    selectedColor: kDefaultOrangeColor,
-                    unselectedColor: kDefaultBlueColor),
-
-                //
-                DotNavigationBarItem(
-                    icon: const Icon(FontAwesomeIcons.list),
-                    selectedColor: kDefaultOrangeColor,
-                    unselectedColor: kDefaultBlueColor),
-
-                //
-                DotNavigationBarItem(
-                    icon: const Icon(FontAwesomeIcons.star),
-                    selectedColor: kDefaultOrangeColor,
-                    unselectedColor: kDefaultBlueColor),
-
-                //
-                // DotNavigationBarItem(
-                //     icon: const Icon(Icons.settings_outlined),
-                //     selectedColor: kDefaultOrangeColor,
-                //     unselectedColor: kDefaultBlueColor),
-              ],
+          body: DoubleBackToCloseApp(
+            snackBar: SnackBar(
+              backgroundColor: Colors.black87.withOpacity(0.7),
+              content: const Text('Tap back again to leave Boutiqua'),
+              behavior: SnackBarBehavior.floating,
             ),
+            child: RefreshIndicator(
+                onRefresh: () async {
+                  cubit.getHomeData();
+                  cubit.getCategoryData();
+                },
+                child: cubit.bottomNavigationBarScreens[cubit.currentIndex]),
+          ),
+          bottomNavigationBar: DotNavigationBar(
+            //margin: const EdgeInsets.only(left: 10, right: 10),
+            currentIndex: cubit.currentIndex,
+            backgroundColor: Colors.white70.withOpacity(0.9),
+            //itemPadding:const EdgeInsets.symmetric(vertical: 0, horizontal: 0), ,
+            onTap: (value) => cubit.toggleBottomNavBarScreen(value),
+            //dotIndicatorColor: Colors.black,
+            items: [
+              //
+              DotNavigationBarItem(
+                  icon: const Icon(
+                    FontAwesomeIcons.bagShopping,
+                  ),
+                  selectedColor: kDefaultOrangeColor,
+                  unselectedColor: kDefaultBlueColor),
+
+              //
+              DotNavigationBarItem(
+                  icon: const Icon(FontAwesomeIcons.list),
+                  selectedColor: kDefaultOrangeColor,
+                  unselectedColor: kDefaultBlueColor),
+
+              //
+              DotNavigationBarItem(
+                  icon: const Icon(FontAwesomeIcons.star),
+                  selectedColor: kDefaultOrangeColor,
+                  unselectedColor: kDefaultBlueColor),
+
+              //
+              // DotNavigationBarItem(
+              //     icon: const Icon(Icons.settings_outlined),
+              //     selectedColor: kDefaultOrangeColor,
+              //     unselectedColor: kDefaultBlueColor),
+            ],
           ),
           appBar: AppBar(
             automaticallyImplyLeading: false,
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.fade,
+                          child: const SearchScreen()));
+                },
                 icon: const Icon(
                   FontAwesomeIcons.magnifyingGlass,
                   color: Colors.black87,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shopapp/controllers/Login/cubit/cubit.dart';
+import 'package:shopapp/controllers/Search/cubit/cubit.dart';
 import 'package:shopapp/controllers/Shop/cubit/cubit.dart';
 import 'package:shopapp/styles/themes.dart';
 import 'package:shopapp/views/login_Screen.dart';
@@ -67,6 +68,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: ((context) => SearchCubit()),
+        ),
         BlocProvider(
           create: ((context) => ShopLoginCubit()),
         ),
