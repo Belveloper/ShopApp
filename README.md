@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://cdn-icons-png.flaticon.com/512/239/239977.png" alt="Boutiqua" width="100"></a>
+  <a href="https://github.com/Belveloper/ShopApp/blob/main/app-shop.png" alt="Boutiqua" width="100"></a>
   <br>
   Boutiqua e-shop app 
   <br>
