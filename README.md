@@ -1,16 +1,41 @@
-# shopapp
+<h1 align="center">
+  <br>
+  <a href="https://github.com/belveloper/e_kraya"><img src="https://raw.githubusercontent.com/Belveloper/e_kraya/master/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" alt="E_kraya" width="100"></a>
+  <br>
+  E_9raya an e-learning tool for better online studies 
+  <br>
+</h1>
+ 
+<h4 align="center">E_kraya app end of studies project made with flutter</h4>
+ 
+[![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/contains-tasty-spaghetti-code.svg)](https://forthebadge.com)
+ 
+<p>
+<img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-5.5-inch-1.png" width="200" height="440"/>
+<img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-5.5-inch-2.png" width="200" height="440"/>
+<img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-5.5-inch-3.png" width="200" height="440"/>
+<img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-5.5-inch-4.png" width="200" height="440"/>
+<img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-5.5-inch-5.png" width="200" height="440"/>
+<img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-5.5-inch-6.png" width="200" height="440"/>
 
-A new Flutter project.
+</p>
+ 
+## License
+ 
+<p>
+Copyright 2022 Cyph3rcod3r
+ 
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+ 
+    https://www.apache.org/licenses/LICENSE-2.0
+ 
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</p> 
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+No email tracked in this conversation
