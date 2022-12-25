@@ -16,10 +16,7 @@
 <img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-5.5-inch-2.png" width="200" height="440"/>
 <img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-5.5-inch-3.png" width="200" height="440"/>
 <img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-5.5-inch-4.png" width="200" height="440"/>
-<img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-6.5-inch-1.png" width="200" height="440"/>
-<img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-6.5-inch-2.png" width="200" height="440"/>
-<img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-6.5-inch-3.png" width="200" height="440"/>
-<img src="https://github.com/Belveloper/ShopApp/blob/main/app-mockup-ios-screenshot-3-default-6.5-inch-4.png" width="200" height="440"/>
+
 
 
 </p>
