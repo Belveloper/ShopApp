@@ -1,12 +1,12 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/belveloper/e_kraya"><img src="https://raw.githubusercontent.com/Belveloper/e_kraya/master/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" alt="E_kraya" width="100"></a>
+  <a href="https://cdn-icons-png.flaticon.com/512/239/239977.png" alt="Boutiqua" width="100"></a>
   <br>
-  E_9raya an e-learning tool for better online studies 
+  Boutiqua e-shop app 
   <br>
 </h1>
  
-<h4 align="center">E_kraya app end of studies project made with flutter</h4>
+<h4 align="center">.. Boutiqua built & designed for you .. flutter</h4>
  
 [![forthebadge](https://forthebadge.com/images/badges/built-for-android.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/contains-tasty-spaghetti-code.svg)](https://forthebadge.com)
  
