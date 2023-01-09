@@ -13,7 +13,6 @@ class FavouritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = ShopCubit.get(context).favouritesModel!;
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {
         if (state is ShopSuccesToggleFavsState) {
@@ -21,15 +20,16 @@ class FavouritesScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return cubit.data!.data!.isNotEmpty
+        var cubit = ShopCubit.get(context);
+        return cubit.favouritesModel!.data!.data!.isNotEmpty
             ? Container(
                 color: Colors.grey.shade100,
                 child: ListView.separated(
                     physics: const BouncingScrollPhysics(),
                     itemBuilder: ((context, index) =>
-                        buildFavItem(cubit, context, index)),
+                        buildFavItem(cubit.favouritesModel, context, index)),
                     separatorBuilder: ((context, index) => const Divider()),
-                    itemCount: cubit.data!.data!.length),
+                    itemCount: cubit.favouritesModel!.data!.data!.length),
               )
             : Padding(
                 padding: const EdgeInsets.all(10.0),

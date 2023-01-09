@@ -22,49 +22,66 @@ class SearchScreen extends StatelessWidget {
         builder: (context, state) {
           return SafeArea(
             child: Scaffold(
-                backgroundColor: Colors.grey.shade100,
+                backgroundColor: Colors.grey.shade200,
                 body: Form(
                   key: key,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
                       children: [
-                        defaultFormField(
-                            // validate: (p0) {
-                            //   if (p0!.isEmpty) {
-                            //     return 'enter something to search';
-                            //   }
-                            //   return null;
-                            // },
-                            prefixIcon: FontAwesomeIcons.magnifyingGlass,
-                            controller: searchController,
-                            keyboardType: TextInputType.text,
-                            label: 'Search a Product',
-                            // onSubmit: (value) {
-                            //   if (key.currentState!.validate()) {
-                            //     searchController.text = value!;
-                            //     SearchCubit.get(context)
-                            //         .search(searchController.text);
-                            //     // print(SearchCubit.get(context).searchModel!.data!);
-                            //   }
-                            // },
-                            onChanged: (value) {
-                              Future.delayed(const Duration(seconds: 3))
-                                  .then((val) {
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15)),
+                          padding: const EdgeInsets.all(5),
+                          height: 60,
+                          child: defaultFormField(
+                              style: defaultTitleTextStyle,
+                              // validate: (p0) {
+                              //   if (p0!.isEmpty) {
+                              //     return 'enter something to search';
+                              //   }
+                              //   return null;
+                              // },
+                              suffixIcon: FontAwesomeIcons.magnifyingGlass,
+                              controller: searchController,
+                              keyboardType: TextInputType.text,
+                              hintText: 'Search a Product',
+                              onSubmit: (value) {
                                 if (key.currentState!.validate()) {
                                   searchController.text = value!;
                                   SearchCubit.get(context)
                                       .search(searchController.text);
+                                  searchController.clear();
                                   // print(SearchCubit.get(context).searchModel!.data!);
                                 }
-                              });
-                            }),
+                              },
+                              onChanged: (value) {
+                                Future.delayed(const Duration(seconds: 3))
+                                    .then((val) {
+                                  if (key.currentState!.validate()) {
+                                    searchController.text = value!;
+                                    SearchCubit.get(context)
+                                        .search(searchController.text);
+                                    // print(SearchCubit.get(context).searchModel!.data!);
+
+                                  } else {
+                                    searchController.clear();
+                                  }
+                                });
+                              }),
+                        ),
                         if (state is SearchLoadingState)
                           const LinearProgressIndicator(),
                         const SizedBox(
                           height: 10,
                         ),
-                        if (state is SearchgetDataSuccesState)
+                        if (state is SearchgetDataSuccesState &&
+                            SearchCubit.get(context)
+                                .searchModel!
+                                .data!
+                                .data!
+                                .isNotEmpty)
                           Expanded(
                             child: ListView.separated(
                                 physics: const BouncingScrollPhysics(),
@@ -93,7 +110,21 @@ class SearchScreen extends StatelessWidget {
                                     .data!
                                     .data!
                                     .length),
-                          ),
+                          )
+                        else if (state is SearchLoadingState)
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('lib/assets/images/search.gif'),
+                                Text(
+                                  'searching...',
+                                  style: defaultTitleTextStyle.copyWith(
+                                      fontSize: 25),
+                                ),
+                              ],
+                            ),
+                          )
                       ],
                     ),
                   ),

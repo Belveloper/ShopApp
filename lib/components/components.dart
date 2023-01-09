@@ -24,7 +24,9 @@ Widget defaultTextButton({required onPressed, required String text}) =>
 
 Widget defaultFormField({
   String? initalValue,
+  String? hintText,
   TextStyle? style,
+  TextStyle? hintStyle,
   bool? isEnabled,
   @required TextEditingController? controller,
   @required TextInputType? keyboardType,
@@ -32,13 +34,12 @@ Widget defaultFormField({
   var onChanged,
   String? Function(String?)? validate,
   var suffixPressedFuncion,
-  @required String? label,
+  String? label,
   IconData? prefixIcon,
   IconData? suffixIcon,
   bool isPassword = false,
 }) =>
     TextFormField(
-      
         enabled: isEnabled,
         onSaved: (newValue) {
           onSubmit;
@@ -50,8 +51,12 @@ Widget defaultFormField({
         onFieldSubmitted: onSubmit,
         onChanged: onChanged,
         decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: hintStyle ??
+              defaultTitleTextStyle.copyWith(color: Colors.black12),
+          border: InputBorder.none,
           label: Text(
-            label!,
+            label ?? '',
             style: defaultTitleTextStyle.copyWith(fontSize: 15),
           ),
           prefixIcon: Icon(prefixIcon),
@@ -154,3 +159,26 @@ Widget skeletonCategoryItem() {
     ),
   );
 }
+
+Widget defaultTextField(
+        {IconData? icon, String? hintText, TextStyle? hintStyle}) =>
+    Container(
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(15)),
+      padding: const EdgeInsets.all(5),
+      height: 60,
+      child: TextFormField(
+        style: defaultTitleTextStyle,
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            icon,
+            color: Colors.black12,
+          ),
+          hintText: hintText,
+          hintStyle: hintStyle ??
+              defaultTitleTextStyle.copyWith(color: Colors.black12),
+          border: InputBorder.none,
+        ),
+        
+      ),
+    );
