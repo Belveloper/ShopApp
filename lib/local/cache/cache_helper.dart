@@ -17,6 +17,10 @@ class CacheHelper {
   static dynamic getData({@required String? key}) {
     return localDb.get(key);
   }
+
+  static dynamic deleteData({@required String? key}) {
+    return localDb.delete(key);
+  }
   // static SharedPreferences? sharedPreferences;
   // static init() async {
   //   sharedPreferences = await SharedPreferences.getInstance();

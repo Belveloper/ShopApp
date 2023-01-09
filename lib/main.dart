@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:shopapp/controllers/Login/cubit/cubit.dart';
+import 'package:shopapp/controllers/Search/cubit/cubit.dart';
 import 'package:shopapp/controllers/Shop/cubit/cubit.dart';
 import 'package:shopapp/styles/themes.dart';
 import 'package:shopapp/views/login_Screen.dart';
@@ -9,6 +11,8 @@ import 'package:shopapp/views/shop_layout_screen.dart';
 import 'package:shopapp/webServices/blocObserver/bloc_observer.dart';
 import 'package:shopapp/webServices/login_api/dio_helper.dart';
 import 'package:shopapp/webServices/token.dart';
+
+import 'controllers/Profile/cubit/cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -65,7 +69,19 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: ((context) => ShopCubit()..getHomeData()..getCategoryData()),
+          create: ((context) => SearchCubit()),
+        ),
+        BlocProvider(
+          create: ((context) => ShopLoginCubit()),
+        ),
+        BlocProvider(
+          create: ((context) => ProfileCubit()..getProfileData()),
+        ),
+        BlocProvider(
+          create: ((context) => ShopCubit()
+            ..getHomeData()
+            ..getCategoryData()
+            ..getFavouritesData()),
         ),
       ],
       child: MaterialApp(

@@ -7,6 +7,7 @@ import 'package:shopapp/constants/constants.dart';
 import 'package:shopapp/controllers/Login/cubit/states.dart';
 import 'package:shopapp/views/register_scren.dart';
 import 'package:shopapp/views/shop_layout_screen.dart';
+import 'package:shopapp/webServices/token.dart';
 
 import '../components/components.dart';
 import '../controllers/Login/cubit/cubit.dart';
@@ -35,19 +36,18 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state.loginModel!.status!) {
               print(state.loginModel!.status);
               print(state.loginModel!.message);
-              cache
-                  .put('token', state.loginModel!.data!.token)
-                  .then(
-                    (value) => navigateToAndFinish(
-                      context,
-                      const ShopLayoutScreen(),
-                    ),
-                  )
-                  .onError(
-                    (error, stackTrace) => print(
-                      error.toString(),
-                    ),
-                  );
+              cache.put('token', state.loginModel!.data!.token).then((value) {
+                token = state.loginModel!.data!.token;
+                print('token after login in the cache: $token');
+                navigateToAndFinish(
+                  context,
+                  const ShopLayoutScreen(),
+                );
+              }).onError((error, stackTrace) {
+                print(
+                  error.toString(),
+                );
+              });
             } else {
               // debug purposes
               print(state.loginModel!.message);

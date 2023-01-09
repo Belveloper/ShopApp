@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopapp/controllers/Login/cubit/states.dart';
+import 'package:shopapp/models/logOut/log_out_model.dart';
 import 'package:shopapp/models/login/shop_login_model.dart';
 import 'package:shopapp/webServices/endpoints/end_points.dart';
 
 import 'package:shopapp/webServices/login_api/dio_helper.dart';
+import 'package:shopapp/webServices/token.dart';
 
 class ShopLoginCubit extends Cubit<ShopLoginStates> {
   ShopLoginCubit() : super(ShopLoginInitialState());
@@ -30,6 +32,20 @@ class ShopLoginCubit extends Cubit<ShopLoginStates> {
       print('ki maymshish cubit:$onError');
 
       emit(ShopLoginErrorState(onError.toString(), loginModel));
+    });
+  }
+
+  void userLogOut() {
+    emit(ShopLogOutLoadinglState());
+    DioHelper.postData(url: LOGOUT, token: token).then((value) {
+      print(value.data);
+      print(ShopLogOutModel.fromJson(value.data).data!.token!);
+
+      emit(ShopLogOutSucceslState());
+    }).catchError((onError) {
+      print('ki maymshish cubit:$onError');
+
+      emit(ShopLogOutErrorState(onError.toString(), loginModel));
     });
   }
 

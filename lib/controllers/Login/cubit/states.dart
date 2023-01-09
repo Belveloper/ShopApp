@@ -18,6 +18,17 @@ class ShopLoginErrorState extends ShopLoginStates {
   ShopLoginErrorState(this.error, this.loginModel);
 }
 
+class ShopLogOutLoadinglState extends ShopLoginStates {}
+
+class ShopLogOutSucceslState extends ShopLoginStates {}
+
+class ShopLogOutErrorState extends ShopLoginStates {
+  ShopLoginModel? loginModel;
+  final String error;
+
+  ShopLogOutErrorState(this.error, this.loginModel);
+}
+
 class ShopLoginPasswordVsibilitylState extends ShopLoginStates {}
 
 class ShopLoginPasswordControllerEmptylState extends ShopLoginStates {}
